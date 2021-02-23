@@ -1,0 +1,170 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Animals for adoption API",
+    "version": "1.0.0",
+    "description": "A simple api for getting animals for adoption and adopting them"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/animals": {
+      "get": {
+        "summary": "Retrieve animals",
+        "tags": [
+          "Animals"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Animal"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create an animal",
+        "tags": [
+          "Animals"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Animal"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Get the registered users",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "Shows the users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Animal": {
+        "type": "object",
+        "required": [
+          "name",
+          "breed"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Animal id"
+          },
+          "name": {
+            "type": "string",
+            "description": "Animal name"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Animal breed"
+          }
+        },
+        "example": {
+          "id": 23421,
+          "name": "Kira",
+          "breed": "Cocker"
+        }
+      },
+      "BadRequest": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "messages": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "code": 400,
+          "message": "Body must contain \"name\" property"
+        }
+      },
+      "User": {
+        "type": "object",
+        "required": [
+          "name",
+          "age"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "User id"
+          },
+          "name": {
+            "type": "string",
+            "description": "User fullname"
+          },
+          "age": {
+            "type": "integer",
+            "description": "User age"
+          }
+        },
+        "example": {
+          "id": 1,
+          "name": "Erick De Santiago",
+          "age": 25
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Animals",
+      "description": "Animals for adoption"
+    },
+    {
+      "name": "Users",
+      "description": "Users to adopt animals"
+    }
+  ]
+}
